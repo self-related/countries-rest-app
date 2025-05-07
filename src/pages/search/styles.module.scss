@@ -1,0 +1,61 @@
+@import "/src/variables.scss";
+
+.searchPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.searchPanel {
+    width: 80%;
+    height: 2.5rem;
+    
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+
+    input {
+        flex-grow: 1;
+        font-size: 1.3rem;
+        text-shadow: black 0.07rem 0.07rem 0.06rem ;
+
+        border: 0;
+        border-radius: 3px;
+
+        height: 100%;
+        padding: 0 10px;
+        
+        background-color: #757575;
+        color: white;
+        accent-color: $accent-color;
+
+        &:hover {
+            background-color: #858585;
+        }
+    }
+
+    button {
+        background-color: #757575;
+        color: white;
+        accent-color: $accent-color;
+
+        border: 0;
+        border-radius: 3px;
+        
+        height: 100%;
+        padding: 4px;
+        cursor: pointer;
+
+        img {
+            height: 100%;
+        }
+
+        &:hover {
+            background-color: #909090;
+        }
+        &:active {
+            background-color: #404040;
+        }
+    }
+}
