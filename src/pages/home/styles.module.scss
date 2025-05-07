@@ -1,0 +1,85 @@
+.homePage {
+    margin-top: 25vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    row-gap: 1rem;
+
+    h1 {
+        font-size: 2.5rem;
+        margin: 0;
+    }
+
+    p {
+        max-width: 70%;
+        text-align: center;
+        margin: 0;
+    }
+    
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row; // for PC
+    gap: 1rem;
+
+    button {
+        height: 3rem;
+        width: 9rem;
+        border-radius: 3px;
+
+        border: none;
+        
+        cursor: pointer;
+
+        font-size: 1.2rem;
+        text-shadow: black 0.07rem 0.05rem 0.07rem;
+    }
+}
+
+.greenButton {
+    background-color: #059249;
+    color: white;
+    
+    &:hover {
+        background-color: #05a552;
+    }
+    &:active{
+        background-color: #027038;
+    }
+}
+.blueButton {
+    background-color: #0459ae;
+    color: white;
+
+    &:hover {
+        background-color: #066fd7;
+    }
+    &:active{
+        background-color: #03396f;
+    }
+}
+
+
+
+@media (max-width: 500px) {
+    .homePage {
+        h1 {
+            font-size: 1.7rem;
+        }
+
+    }
+    .buttons {
+        flex-direction: column;
+
+        button {
+            height: 2.5rem;
+            width: 8.5rem;
+    
+            font-size: 1rem;
+        }
+    }
+}
