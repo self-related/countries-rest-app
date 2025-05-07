@@ -1,0 +1,18 @@
+.app {
+    min-width: 100vw;
+    min-height: 100vh;
+
+    background-color: #252525;
+    color: #dddddd;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-grow: 1;
+}
