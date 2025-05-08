@@ -11,7 +11,7 @@ export default function SearchPage() {
     const params = useParams<Params>();
     
     const [query, setQuery] = useState(params.query); // param is the default query
-    const [input, setInput] = useState("");
+    const [input, setInput] = useState(params.query ?? "");
     
     const skip: boolean = query == null; // skip === true if no query
 
@@ -33,7 +33,7 @@ export default function SearchPage() {
     return (
         <div className={styles.searchPage}>
             <div className={styles.searchPanel}>
-                <input type="text" onInput={(event) => setInput(event.currentTarget.value)} onKeyDown={(event) => event.key == "Enter" ? handleSearchButtonClick() : ""} />
+                <input type="text" onInput={(event) => setInput(event.currentTarget.value)} defaultValue={input} onKeyDown={(event) => event.key == "Enter" ? handleSearchButtonClick() : ""} />
                 <button onClick={handleSearchButtonClick}><img src={SearchIcon} alt="search" /></button>
             </div>
             {
