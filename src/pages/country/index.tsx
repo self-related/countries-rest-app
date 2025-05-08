@@ -11,7 +11,7 @@ export default function CountryPage() {
     const { data } = useFetchCountriesByCodesQuery([code]);
     const country = data && data[0];
 
-    const {data: borderCountries} = useFetchCountriesByCodesQuery(country?.borders ?? [], { skip: data == null })
+    const {data: borderCountries, isLoading: isBorderCountriesLoading} = useFetchCountriesByCodesQuery(country?.borders ?? [], { skip: data == null })
 
     console.log(country);
     console.log(borderCountries)
@@ -19,13 +19,18 @@ export default function CountryPage() {
     return (
         <div className={styles.countryPage}>
             <h1>{country?.name.common}</h1>
+
             <div className={styles.picture}>
                 <img src={country?.flags.png} alt={country?.flags.alt} />
             </div>
-            <p>Official name: {country?.name.official}</p>
+            
+            <p className={styles.paragraph}>Official name: {country?.name.official}</p>
+            <p className={styles.paragraph}>Region: {country?.region}</p>
+            <p className={styles.paragraph}>Population: {country?.population}</p>
+
             <div className={styles.borderCountries}>
                 <h2>Has borders with:</h2>
-                <CountryListComponent countries={borderCountries} />
+                <CountryListComponent countries={borderCountries} isLoading={isBorderCountriesLoading}/>
             </div>
 
         </div>

@@ -4,12 +4,18 @@ import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
 
 interface CountryListComponentProps {
-    countries: Country[] | undefined
+    countries: Country[] | undefined,
+    isLoading: boolean,
 }
 
-export default function CountryListComponent({ countries }: CountryListComponentProps) {
+export default function CountryListComponent({ countries, isLoading }: CountryListComponentProps) {
   const navigate = useNavigate();
   const [countriesList, setCountriesList] = useState(countries);
+
+  const noDataFound = 
+    isLoading 
+    ? <p className={styles.noData}> Loading...</p>
+    : <p className={styles.noData}> Not found</p>;
 
 
 
@@ -39,7 +45,7 @@ export default function CountryListComponent({ countries }: CountryListComponent
                     <p>{country.flag} {country.name.common}</p>
                 </div>
             ))
-            : <p className={styles.notFound}> Not found</p>
+            : noDataFound
         }
     </div>
   )

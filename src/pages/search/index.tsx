@@ -15,7 +15,7 @@ export default function SearchPage() {
     
     const skip: boolean = query == null; // skip === true if no query
 
-    const { data, isError } = useFetchCountriesQuery(query!, { skip });
+    const { data, isLoading } = useFetchCountriesQuery(query!, { skip });
 
     
     console.log("params: ", params);
@@ -36,9 +36,7 @@ export default function SearchPage() {
                 <button onClick={handleSearchButtonClick}><img src={SearchIcon} alt="search" /></button>
             </div>
             {
-                isError
-                ? <p>Not Found</p>
-                : <CountryListComponent countries={data} />
+                <CountryListComponent countries={data} isLoading={isLoading} />
             }
 
         </div>
