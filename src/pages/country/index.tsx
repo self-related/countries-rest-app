@@ -4,11 +4,11 @@ import { useFetchCountriesByCodesQuery } from "../../redux/features/api/restCoun
 import CountryListComponent from "../../components/CountryListComponent";
 
 export default function CountryPage() {
-    const params = useParams<{ccn3: string}>();
+    const params = useParams<{code: string}>();
     console.log(params)
-    const ccn3 = Number(params.ccn3);
+    const code: string = params.code!;
 
-    const { data } = useFetchCountriesByCodesQuery([ccn3]);
+    const { data } = useFetchCountriesByCodesQuery([code]);
     const country = data && data[0];
 
     const {data: borderCountries} = useFetchCountriesByCodesQuery(country?.borders ?? [], { skip: data == null })

@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
                 element: <SearchPage />
             },
             {
-                path: "/country/:ccn3",
+                path: "/country/:code",
                 element: <CountryPage />
             }
         ]
