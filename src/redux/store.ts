@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
+import { restCountriesApiSlice } from "./features/api/restCountriesApiSlice";
 
 export const store = configureStore({
     reducer: {
-    }
+        [restCountriesApiSlice.reducerPath]: restCountriesApiSlice.reducer,
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(restCountriesApiSlice.middleware),
 });
 
 // export types
