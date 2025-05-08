@@ -20,7 +20,8 @@ export interface Country {
         png: urlString,
         svg: urlString,
         alt: string, // text
-    }
+    },
+    population: number
 }
 
 export type FetchCountriesResponse = Country[];
