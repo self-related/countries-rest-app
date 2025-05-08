@@ -21,9 +21,15 @@ export const restCountriesApiSlice = createApi({
                 }
             },
         }),
+
+        fetchCountriesByCCN3: build.query<FetchCountriesResponse, number>({
+            query: (query: number) => ({
+                url: `/alpha/${query}`
+            })
+        }),
     }),
     reducerPath: "restCountriesApi",
 
 });
 
-export const { useFetchCountriesQuery } = restCountriesApiSlice;
+export const { useFetchCountriesQuery, useFetchCountriesByCCN3Query } = restCountriesApiSlice;
