@@ -15,7 +15,7 @@ export default function SearchPage() {
     
     const skip: boolean = query == null; // skip === true if no query
 
-    const { data } = useFetchCountriesQuery(query!, { skip });
+    const { data, isError } = useFetchCountriesQuery(query!, { skip });
 
     
     console.log("params: ", params);
@@ -35,7 +35,11 @@ export default function SearchPage() {
                 <input type="text" onInput={(event) => setInput(event.currentTarget.value)} />
                 <button onClick={handleSearchButtonClick}><img src={SearchIcon} alt="search" /></button>
             </div>
-            <CountryListComponent countries={data} />
+            {
+                isError
+                ? <p>Not Found</p>
+                : <CountryListComponent countries={data} />
+            }
 
         </div>
     );
