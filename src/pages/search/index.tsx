@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SearchIcon from "../../assets/search_icon.svg";
 import { useFetchCountriesQuery } from "../../redux/features/api/restCountriesApiSlice";
 import { useState } from "react";
@@ -15,17 +15,18 @@ export default function SearchPage() {
     
     const skip: boolean = query == null; // skip === true if no query
 
-    const { data, isLoading } = useFetchCountriesQuery(query!, { skip });
+    const { data, isLoading, isError } = useFetchCountriesQuery(query!, { skip });
 
-    
-    console.log("params: ", params);
-    console.log("data:", data);
+    const navigate = useNavigate();
 
     const handleSearchButtonClick = () => {
-        if (input.trim() == "") {
+        const inputTrimmed = input.trim();
+
+        if (inputTrimmed == "") {
             return;
         } else {
-            setQuery(input);
+            setQuery(inputTrimmed);
+            navigate(`/search/${inputTrimmed}`);
         }
     };
 
@@ -36,7 +37,7 @@ export default function SearchPage() {
                 <button onClick={handleSearchButtonClick}><img src={SearchIcon} alt="search" /></button>
             </div>
             {
-                <CountryListComponent countries={data} isLoading={isLoading} />
+                <CountryListComponent countries={ !isError ? data : []} isLoading={isLoading} />
             }
 
         </div>
