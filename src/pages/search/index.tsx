@@ -32,7 +32,7 @@ export default function SearchPage() {
     return (
         <div className={styles.searchPage}>
             <div className={styles.searchPanel}>
-                <input type="text" onInput={(event) => setInput(event.currentTarget.value)} />
+                <input type="text" onInput={(event) => setInput(event.currentTarget.value)} onKeyDown={(event) => event.key == "Enter" ? handleSearchButtonClick() : ""} />
                 <button onClick={handleSearchButtonClick}><img src={SearchIcon} alt="search" /></button>
             </div>
             {
