@@ -20,4 +20,4 @@ export interface Country {
     }
 }
 
-export type FetchCountriesRespond = Country[];
+export type FetchCountriesResponse = Country[];
