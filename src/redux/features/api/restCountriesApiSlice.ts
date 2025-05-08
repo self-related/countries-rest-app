@@ -22,9 +22,9 @@ export const restCountriesApiSlice = createApi({
             },
         }),
 
-        fetchCountriesByCCN3: build.query<FetchCountriesResponse, number>({
-            query: (query: number) => ({
-                url: `/alpha/${query}`
+        fetchCountriesByCodes: build.query<FetchCountriesResponse, Array<string | number>>({
+            query: (query: Array<string | number>) => ({
+                url: `/alpha?codes=${query.join(",")}`
             })
         }),
     }),
@@ -32,4 +32,4 @@ export const restCountriesApiSlice = createApi({
 
 });
 
-export const { useFetchCountriesQuery, useFetchCountriesByCCN3Query } = restCountriesApiSlice;
+export const { useFetchCountriesQuery, useFetchCountriesByCodesQuery } = restCountriesApiSlice;
