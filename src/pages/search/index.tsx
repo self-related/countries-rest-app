@@ -11,6 +11,7 @@ export default function SearchPage() {
     const params = useParams<Params>();
     
     const [query, setQuery] = useState(params.query); // param is the default query
+    const [input, setInput] = useState("");
     
     const skip: boolean = query == null; // skip === true if no query
 
@@ -20,11 +21,19 @@ export default function SearchPage() {
     console.log("params: ", params);
     console.log("data:", data);
 
+    const handleSearchButtonClick = () => {
+        if (input.trim() == "") {
+            return;
+        } else {
+            setQuery(input);
+        }
+    };
+
     return (
         <div className={styles.searchPage}>
             <div className={styles.searchPanel}>
-                <input type="text" />
-                <button><img src={SearchIcon} alt="search" /></button>
+                <input type="text" onInput={(event) => setInput(event.currentTarget.value)} />
+                <button onClick={handleSearchButtonClick}><img src={SearchIcon} alt="search" /></button>
             </div>
             <CountryListComponent countries={data} />
 
