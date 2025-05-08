@@ -28,6 +28,32 @@ export default function CountryListComponent({ countries, isLoading }: CountryLi
     setCountriesList(countriesListSorted);
   };
 
+  const handleSortByName = () => {
+    if (!countriesList) {
+        return;
+    }
+    
+    // sort by every letter
+    const countriesListSorted = [...countriesList].sort((countryA, countryB) => {
+        let returnCode = countryA.name.common.charCodeAt(0) - countryB.name.common.charCodeAt(0);
+        if (returnCode == 0) {
+            for (let i = 1; i < countryA.name.common.length; i++) {
+                if (i >= countryB.name.common.length) {
+                    break;
+                }
+
+                returnCode = countryA.name.common.charCodeAt(i) - countryB.name.common.charCodeAt(i);
+
+                if (returnCode !== 0) {
+                    break;
+                }
+            }
+        }
+        return returnCode;
+    });
+    setCountriesList(countriesListSorted);
+  };
+
   // change country list if props changed
   useEffect(() => {
     setCountriesList(countries);
@@ -36,7 +62,8 @@ export default function CountryListComponent({ countries, isLoading }: CountryLi
   return (
     <div className={styles.countryList}>
         <div>
-            <button onClick={handleSortByPopulation} className={styles.sortByPopulation}>By population</button>
+            <button onClick={handleSortByPopulation} className={styles.sortButton}>By population</button>
+            <button onClick={handleSortByName} className={styles.sortButton}>By Name</button>
         </div>
         {
             countriesList != null
