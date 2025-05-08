@@ -5,17 +5,11 @@ import { useEffect, useState } from "react";
 
 interface CountryListComponentProps {
     countries: Country[] | undefined,
-    isLoading: boolean,
 }
 
-export default function CountryListComponent({ countries, isLoading }: CountryListComponentProps) {
+export default function CountryListComponent({ countries }: CountryListComponentProps) {
   const navigate = useNavigate();
   const [countriesList, setCountriesList] = useState(countries);
-
-  const noDataFound = 
-    isLoading 
-    ? <p className={styles.noData}> Loading...</p>
-    : <p className={styles.noData}> Not found</p>;
 
 
 
@@ -81,13 +75,11 @@ export default function CountryListComponent({ countries, isLoading }: CountryLi
             </select>
         </div>
         {
-            countriesList != null
-            ? countriesList?.map((country, index) => (
+            countriesList?.map((country, index) => (
                 <div className={styles.country} key={`country-${index}`} onClick={() => navigate(`/country/${country.cca3}`)}>
                     <p>{country.flag} {country.name.common}</p>
                 </div>
             ))
-            : noDataFound
         }
     </div>
   )

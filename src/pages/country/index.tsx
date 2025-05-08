@@ -11,7 +11,7 @@ export default function CountryPage() {
     const { data } = useFetchCountriesByCodesQuery([code]);
     const country = data && data[0];
 
-    const {data: borderCountries, isLoading: isBorderCountriesLoading} = useFetchCountriesByCodesQuery(country?.borders ?? [], { skip: data == null })
+    const {data: borderCountries, isError} = useFetchCountriesByCodesQuery(country?.borders ?? [], { skip: data == null })
 
     console.log(country);
     console.log(borderCountries)
@@ -30,7 +30,11 @@ export default function CountryPage() {
 
             <div className={styles.borderCountries}>
                 <h2>Has borders with:</h2>
-                <CountryListComponent countries={borderCountries} isLoading={isBorderCountriesLoading}/>
+                {
+                    data && !isError
+                    ? <CountryListComponent countries={ borderCountries } />
+                    : <p>Not Found</p>
+                }
             </div>
 
         </div>
