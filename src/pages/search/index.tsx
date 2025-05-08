@@ -2,14 +2,21 @@ import styles from "./styles.module.scss";
 import { useParams } from "react-router-dom";
 import SearchIcon from "../../assets/search_icon.svg";
 import { useFetchCountriesQuery } from "../../redux/features/api/restCountriesApiSlice";
+import { useState } from "react";
+
+type Params = { query?: string }
 
 export default function SearchPage() {
-    const params = useParams<{query: string}>();
+    const params = useParams<Params>();
+    
+    const [query, setQuery] = useState(params.query); // param is the default query
+    
+    const skip: boolean = query == null; // skip === true if no query
+
+    const { data } = useFetchCountriesQuery(query!, { skip });
+
+    
     console.log("params: ", params);
-
-    const skip: boolean = params.query == null;
-    const {data} = useFetchCountriesQuery(params.query!, { skip });
-
     console.log("data:", data);
 
     return (
