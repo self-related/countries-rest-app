@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import SearchIcon from "../../assets/search_icon.svg";
 import { useFetchCountriesQuery } from "../../redux/features/api/restCountriesApiSlice";
 import { useState } from "react";
+import CountryListComponent from "../../components/CountryListComponent";
 
 type Params = { query?: string }
 
@@ -25,9 +26,7 @@ export default function SearchPage() {
                 <input type="text" />
                 <button><img src={SearchIcon} alt="search" /></button>
             </div>
-            <div className={styles.searchResults}>
-
-            </div>
+            <CountryListComponent countries={data} />
 
         </div>
     );
