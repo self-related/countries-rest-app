@@ -27,11 +27,22 @@
     font-size: 1.5rem;
 }
 
+.sortPanel {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: end;
+    padding: 3px;
+}
+
 .sortButton {
     border: none;
+    border-radius: 3px;
     background-color: #757575;
     color: white;
     text-shadow: black 0.07rem 0.07rem 0.06rem ;
+
+    height: 1.3rem;
+
     cursor: pointer;
 
     &:hover {

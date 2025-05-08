@@ -61,7 +61,7 @@ export default function CountryListComponent({ countries, isLoading }: CountryLi
 
   return (
     <div className={styles.countryList}>
-        <div>
+        <div className={styles.sortPanel}>
             <button onClick={handleSortByPopulation} className={styles.sortButton}>By population</button>
             <button onClick={handleSortByName} className={styles.sortButton}>By Name</button>
         </div>
