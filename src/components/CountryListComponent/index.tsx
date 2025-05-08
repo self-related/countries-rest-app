@@ -11,11 +11,13 @@ export default function CountryListComponent({ countries }: CountryListComponent
   return (
     <div className={styles.countryList}>
         {
-            countries?.map((country, index) => (
+            countries != null
+            ? countries?.map((country, index) => (
                 <div className={styles.country} key={`country-${index}`} onClick={() => navigate(`/country/${country.cca3}`)}>
                     <p>{country.flag} {country.name.common}</p>
                 </div>
             ))
+            : <p className={styles.notFound}> Not found</p>
         }
     </div>
   )
