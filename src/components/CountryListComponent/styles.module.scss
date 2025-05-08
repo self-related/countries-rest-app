@@ -26,3 +26,18 @@
     text-align: center;
     font-size: 1.5rem;
 }
+
+.sortByPopulation {
+    border: none;
+    background-color: #757575;
+    color: white;
+    text-shadow: black 0.07rem 0.07rem 0.06rem ;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #858585;
+    }
+    &:active {
+        background-color: #454545;
+    }
+}
