@@ -5,15 +5,24 @@ const baseUrl = "https://restcountries.com/v3.1";
 export const restCountriesApiSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl }),
     endpoints: (build) => ({
-        fetchAllCountries: build.query({
-            query: () => ({
-                url: "/all",
-                method: "GET"
-            }),
+        fetchCountries: build.query({
+            query: (query: string) => {
+                if (query == "all") {
+                    return {
+                        url: "/all",
+                        method: "GET",
+                    };
+                } else {
+                    return {
+                        url: `/name/${query}`,
+                        method: "GET",
+                    }
+                }
+            },
         }),
     }),
     reducerPath: "restCountriesApi",
 
 });
 
-export const { useFetchAllCountriesQuery } = restCountriesApiSlice;
+export const { useFetchCountriesQuery } = restCountriesApiSlice;
