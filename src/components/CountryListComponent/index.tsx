@@ -54,6 +54,13 @@ export default function CountryListComponent({ countries, isLoading }: CountryLi
     setCountriesList(countriesListSorted);
   };
 
+  const handleRegionSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const region = event.currentTarget.value;
+    
+    const countriesListFiltered = region !== "" ? countries?.filter(country => country.region == region ) : countries;
+    setCountriesList(countriesListFiltered);
+  };
+
   // change country list if props changed
   useEffect(() => {
     setCountriesList(countries);
@@ -64,6 +71,14 @@ export default function CountryListComponent({ countries, isLoading }: CountryLi
         <div className={styles.sortPanel}>
             <button onClick={handleSortByPopulation} className={styles.sortButton}>By population</button>
             <button onClick={handleSortByName} className={styles.sortButton}>By Name</button>
+            <select onChange={handleRegionSelectChange} className={styles.selectRegion}>
+                <option value="">All regions</option>
+                <option value="Africa">Africa</option>
+                <option value="Americas">Americas</option>
+                <option value="Asia">Asia</option>
+                <option value="Oceania">Australia & Oceania</option>
+                <option value="Europe">Europe</option>
+            </select>
         </div>
         {
             countriesList != null

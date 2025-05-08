@@ -41,7 +41,7 @@
     color: white;
     text-shadow: black 0.07rem 0.07rem 0.06rem ;
 
-    height: 1.3rem;
+    height: 1.5rem;
 
     cursor: pointer;
 
@@ -50,5 +50,24 @@
     }
     &:active {
         background-color: #454545;
+    }
+}
+
+.selectRegion {
+    background-color: #757575;
+        color: white;
+        text-shadow: black 0.07rem 0.07rem 0.06rem ;
+
+        border: none;
+        border-radius: 3px;
+        
+        height: 1.5rem;
+
+        cursor: pointer;
+
+        accent-color: #ff8800;
+    &:hover {
+        background-color: #707070;
+        cursor: pointer;
     }
 }
