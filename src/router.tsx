@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Home from "./pages/home";
 import SearchPage from "./pages/search";
+import CountryPage from "./pages/country";
 
 export const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
             {
                 path: "/search/:query",
                 element: <SearchPage />
+            },
+            {
+                path: "/country/:ccn3",
+                element: <CountryPage />
             }
         ]
     }

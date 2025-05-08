@@ -1,0 +1,23 @@
+.countryPage {
+    padding: 0 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .picture {
+        width: 12rem;
+        img {
+            display: block;
+            width: 100%;
+            object-fit: scale-down;
+        }
+    }
+}
+
+.borderCountries {
+    width: 70%;
+    h2 {
+        text-align: center;
+    }
+}
