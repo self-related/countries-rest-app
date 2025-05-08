@@ -33,7 +33,7 @@ export default function CountryPage() {
                 {
                     data && !isError
                     ? <CountryListComponent countries={ borderCountries } />
-                    : <p>Not Found</p>
+                    : <p className={styles.notFound}>Not Found</p>
                 }
             </div>
 
