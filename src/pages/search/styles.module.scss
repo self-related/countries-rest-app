@@ -65,6 +65,15 @@
 .searchResults {
     width: 100%;
     background-color: #757575;
-    // min-height: 11rem;
     border-radius: 3px;
+}
+
+@media (max-width: 600px) {
+    .searchPanel {
+        height: 1.8rem;
+    }
+
+    .searchPage {
+        padding: 0 5%;
+    }
 }

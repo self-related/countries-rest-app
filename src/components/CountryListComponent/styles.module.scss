@@ -9,7 +9,7 @@
 }
 .country {
     width: 100%;
-    padding-left: 0.7rem;
+    padding: 0 0.7rem;
     background-color: #606060;
     border-radius: 3px;
     cursor: pointer;
@@ -32,6 +32,7 @@
     gap: 0.5rem;
     justify-content: end;
     padding: 3px;
+    margin-bottom: 0.2rem;
 }
 
 .sortButton {
@@ -40,6 +41,7 @@
     background-color: #757575;
     color: white;
     text-shadow: black 0.07rem 0.07rem 0.06rem ;
+    text-align: center;
 
     height: 1.5rem;
 
@@ -74,8 +76,7 @@
 
 .resetButton {
     background-color: #943131;
-    aspect-ratio: 1/1;
-
+    min-width: 2rem;
     &:hover {
         background-color: #cd3838;
     }
@@ -92,5 +93,17 @@
     }
     &:active {
         background-color: #663804;
+    }
+}
+
+@media (max-width: 600px) {
+    .sortPanel {
+        flex-direction: column;
+        margin-bottom: 0.5rem;
+    }
+
+    .selectRegion {
+        text-align: center;
+        padding-left: 1rem;
     }
 }

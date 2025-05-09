@@ -6,6 +6,10 @@
     align-items: center;
     gap: 1.2rem;
 
+    h1 {
+        text-align: center;
+    }
+
     .picture {
         width: 12rem;
         img {
@@ -16,6 +20,7 @@
     }
     .paragraph {
         margin: 0;
+        text-align: center;
     }
 }
 
@@ -26,5 +31,11 @@
     }
     .notFound {
         text-align: center;
+    }
+}
+
+@media (max-width: 800px) {
+    .borderCountries {
+        width: 90%
     }
 }
