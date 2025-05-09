@@ -13,12 +13,12 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
   const navigate = useNavigate();
   
   /// Стейты для сортировки и фильтрации.
-  // Значение для сортировки из localStorage или false
-  const [sortedByPopulation, setSortedByPopulation] = useState<boolean>(JSON.parse(localStorage.getItem("countriesSortedByPopulation") ?? "false"));
-  const [sortedByName, setSortedByName] = useState<boolean>(JSON.parse(localStorage.getItem("countriesSortedByName") ?? "false"));
+  // Значение для сортировки из sessionStorage или false
+  const [sortedByPopulation, setSortedByPopulation] = useState<boolean>(JSON.parse(sessionStorage.getItem("countriesSortedByPopulation") ?? "false"));
+  const [sortedByName, setSortedByName] = useState<boolean>(JSON.parse(sessionStorage.getItem("countriesSortedByName") ?? "false"));
   
-  // не фильтровать по-умолчанию (регион All). Иначе значение из localStorage или All
-  const defaultFilterRegion = noFilterByDefault ? "All" : localStorage.getItem("countriesFilterRegion") ?? "All";
+  // не фильтровать по-умолчанию (регион All). Иначе значение из sessionStorage или All
+  const defaultFilterRegion = noFilterByDefault ? "All" : sessionStorage.getItem("countriesFilterRegion") ?? "All";
   const [filterRegion, setFilterRegion] = useState<string>(defaultFilterRegion);
 
 
@@ -27,7 +27,7 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
   const handleSortByPopulation = (value?: boolean) => {
     const newValue = value ?? !sortedByPopulation; // присвоить напрямую, или переключить текущее значение
     setSortedByPopulation(newValue);
-    localStorage.setItem("countriesSortedByPopulation", JSON.stringify(newValue));
+    sessionStorage.setItem("countriesSortedByPopulation", JSON.stringify(newValue));
 
     // отключить другую сортировку, если true
     if (newValue == true) {
@@ -39,7 +39,7 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
   const handleSortByName = (value?: boolean) => {
     const newValue = value ?? !sortedByName; // присвоить напрямую, или переключить текущее значение
     setSortedByName(newValue);
-    localStorage.setItem("countriesSortedByName", JSON.stringify(newValue));
+    sessionStorage.setItem("countriesSortedByName", JSON.stringify(newValue));
 
     // отключить другую сортировку, если true
     if (newValue == true) {
@@ -53,7 +53,7 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
     const region = event.currentTarget.value;
     setFilterRegion(region);
 
-    localStorage.setItem("countriesFilterRegion", region);
+    sessionStorage.setItem("countriesFilterRegion", region);
   };
 
 
