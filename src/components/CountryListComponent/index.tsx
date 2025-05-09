@@ -15,17 +15,17 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
   const { t } = useTranslation();
   
   /// Стейты для сортировки и фильтрации.
-  // Значение для сортировки из sessionStorage или false
+  // стандартные значение для сортировки берутся из sessionStorage или false
   const [sortedByPopulation, setSortedByPopulation] = useState<boolean>(JSON.parse(sessionStorage.getItem("countriesSortedByPopulation") ?? "false"));
   const [sortedByName, setSortedByName] = useState<boolean>(JSON.parse(sessionStorage.getItem("countriesSortedByName") ?? "false"));
   
-  // не фильтровать по-умолчанию (регион All). Иначе значение из sessionStorage или All
+  // если не фильтровать по-умолчанию, то регион == "All". Иначе значение из sessionStorage или "All"
   const defaultFilterRegion = noFilterByDefault ? "All" : sessionStorage.getItem("countriesFilterRegion") ?? "All";
   const [filterRegion, setFilterRegion] = useState<string>(defaultFilterRegion);
 
 
 
-  // коллбэк настройки сортировки по населению
+  // настроить сортировку по населению и записать в sessionStorage
   const handleSortByPopulation = (value?: boolean) => {
     const newValue = value ?? !sortedByPopulation; // присвоить напрямую, или переключить текущее значение
     setSortedByPopulation(newValue);
@@ -37,7 +37,7 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
     }
   };
 
-  // коллбэк настройки сортировки по названию
+  // настроить сортировку по названию и записать в sessionStorage
   const handleSortByName = (value?: boolean) => {
     const newValue = value ?? !sortedByName; // присвоить напрямую, или переключить текущее значение
     setSortedByName(newValue);
@@ -50,7 +50,7 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
   };
 
 
-  // коллбэк настройки фильтрации по региону
+  // настроить фильтрацию по региону и записать в sessionStorage
   const handleRegionSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const region = event.currentTarget.value;
     setFilterRegion(region);
@@ -58,6 +58,7 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
     sessionStorage.setItem("countriesFilterRegion", region);
   };
 
+  // сброс параметров и очистки sessionStorage
   const handleOptionsReset = () => {
       setSortedByPopulation(false);
       setSortedByName(false);

@@ -7,16 +7,12 @@ import { useTranslation } from "react-i18next";
 export default function CountryPage() {
     const { t } = useTranslation();
     const params = useParams<{code: string}>();
-    console.log(params)
     const code: string = params.code!;
 
     const { data } = useFetchCountriesByCodesQuery([code]);
     const country = data && data[0];
 
     const {data: borderCountries, isError} = useFetchCountriesByCodesQuery(country?.borders ?? [], { skip: data == null })
-
-    console.log(country);
-    console.log(borderCountries)
 
     return (
         <div className={styles.countryPage}>
