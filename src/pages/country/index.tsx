@@ -12,7 +12,7 @@ export default function CountryPage() {
     const params = useParams<{code: string}>();
     const code: string = params.code!;
 
-    const { data } = useFetchCountriesByCodesQuery([code]);
+    const { data, isFetching } = useFetchCountriesByCodesQuery([code]);
     const country = data && data[0];
 
     const {data: borderCountries, isError} = useFetchCountriesByCodesQuery(country?.borders ?? [], { skip: data == null })
@@ -38,9 +38,11 @@ export default function CountryPage() {
             <div className={styles.borderCountries}>
                 <h2>{ t("commonBorders") }</h2>
                 {
-                    data && !isError
-                    ? <CountryListComponent countries={ borderCountries } noFilterByDefault={true} />
-                    : <p className={styles.notFound}>Not Found</p>
+                    isFetching 
+                    ? <p className={styles.notFound}>Loading...</p>
+                    : isError
+                        ? <p className={styles.notFound}>Not Found</p>
+                        :  data && <CountryListComponent countries={ borderCountries } noFilterByDefault={true} />
                 }
             </div>
 
