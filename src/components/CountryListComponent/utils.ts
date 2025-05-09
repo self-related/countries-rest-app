@@ -1,17 +1,26 @@
 import type { Country } from "../../redux/features/api/types";
 
-const sortByName = (countriesList: Country[]): Country[] => {
+// словарь для языков из-за отличий в i18n и restcountries api
+export const LANG_MAP: { [i18nLang: string]: string } = {
+    ru: "rus",
+};
 
-    // sort by every letter
+const sortByName = (countriesList: Country[], i18nLang: string): Country[] => {
+    const lang = i18nLang == "en" ? i18nLang : LANG_MAP[i18nLang];
+
+    // сортировка по каждой букве по официальному названию, либо по официальному переводу
     const countriesListSorted = [...countriesList].sort((countryA, countryB) => {
-        let returnCode = countryA.name.official.charCodeAt(0) - countryB.name.official.charCodeAt(0);
+        const countryAName = lang == "en" ? countryA.name.official : countryA.translations[lang].official;
+        const countryBName = lang == "en" ? countryB.name.official : countryB.translations[lang].official;
+        
+        let returnCode = countryAName.charCodeAt(0) - countryBName.charCodeAt(0);
         if (returnCode == 0) {
-            for (let i = 1; i < countryA.name.official.length; i++) {
-                if (i >= countryB.name.official.length) {
+            for (let i = 1; i < countryAName.length; i++) {
+                if (i >= countryBName.length) {
                     break;
                 }
 
-                returnCode = countryA.name.official.charCodeAt(i) - countryB.name.official.charCodeAt(i);
+                returnCode = countryAName.charCodeAt(i) - countryBName.charCodeAt(i);
 
                 if (returnCode !== 0) {
                     break;
@@ -40,16 +49,17 @@ const filterByRegion = (countriesList: Country[], region: string): Country[] => 
 interface TransformDataParams {
     sortedByPopulation: boolean,
     sortedByName: boolean,
-    filterRegion: string
+    filterRegion: string,
+    i18nLang: string
 }
 
-export const transformData = (countries: Country[], { sortedByPopulation, sortedByName, filterRegion }: TransformDataParams): Country[] => {
+export const transformData = (countries: Country[], { sortedByPopulation, sortedByName, filterRegion, i18nLang }: TransformDataParams): Country[] => {
     let countriesList = countries;
 
     if (sortedByPopulation) {
         countriesList = sortByPopulation(countriesList);
     } else if (sortedByName) {
-        countriesList = sortByName(countriesList);
+        countriesList = sortByName(countriesList, i18nLang);
     }
 
     if (filterRegion !== "All") {

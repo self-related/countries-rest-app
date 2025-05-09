@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import type { Country } from "../../redux/features/api/types";
 import styles from "./styles.module.scss";
 import { useState } from "react";
-import { transformData } from "./utils";
+import { LANG_MAP, transformData } from "./utils";
 import { useTranslation } from "react-i18next";
 
 interface CountryListComponentProps {
@@ -12,7 +12,8 @@ interface CountryListComponentProps {
 
 export default function CountryListComponent({ countries, noFilterByDefault }: CountryListComponentProps) {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const i18nLang = i18n.language;
   
   /// Стейты для сортировки и фильтрации.
   // стандартные значение для сортировки берутся из sessionStorage или false
@@ -69,7 +70,7 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
 
 
   // применить настройки сортировки и фильтрации через transformData()
-  const countriesList = countries && transformData(countries, { sortedByPopulation, sortedByName, filterRegion });
+  const countriesList = countries && transformData(countries, { sortedByPopulation, sortedByName, filterRegion, i18nLang });
 
   return (
     <div className={styles.countryList}>
@@ -93,7 +94,7 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
         {
             countriesList?.map((country, index) => (
                 <div className={styles.country} key={`country-${index}`} onClick={() => navigate(`/country/${country.cca3}`)}>
-                    <p>{country.flag} {country.name.official}</p>
+                    <p>{country.flag} {i18nLang == "en" ? country.name.official : country.translations[LANG_MAP[i18nLang]].official}</p>
                 </div>
             ))
         }
