@@ -93,7 +93,7 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
         {
             countriesList?.map((country, index) => (
                 <div className={styles.country} key={`country-${index}`} onClick={() => navigate(`/country/${country.cca3}`)}>
-                    <p>{country.flag} {country.name.common}</p>
+                    <p>{country.flag} {country.name.official}</p>
                 </div>
             ))
         }

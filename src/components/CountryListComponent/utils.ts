@@ -4,14 +4,14 @@ const sortByName = (countriesList: Country[]): Country[] => {
 
     // sort by every letter
     const countriesListSorted = [...countriesList].sort((countryA, countryB) => {
-        let returnCode = countryA.name.common.charCodeAt(0) - countryB.name.common.charCodeAt(0);
+        let returnCode = countryA.name.official.charCodeAt(0) - countryB.name.official.charCodeAt(0);
         if (returnCode == 0) {
-            for (let i = 1; i < countryA.name.common.length; i++) {
-                if (i >= countryB.name.common.length) {
+            for (let i = 1; i < countryA.name.official.length; i++) {
+                if (i >= countryB.name.official.length) {
                     break;
                 }
 
-                returnCode = countryA.name.common.charCodeAt(i) - countryB.name.common.charCodeAt(i);
+                returnCode = countryA.name.official.charCodeAt(i) - countryB.name.official.charCodeAt(i);
 
                 if (returnCode !== 0) {
                     break;
