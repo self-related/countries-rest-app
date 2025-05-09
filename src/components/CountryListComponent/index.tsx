@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import type { Country } from "../../redux/features/api/types";
 import styles from "./styles.module.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { transformData } from "./utils";
 
 interface CountryListComponentProps {
     countries: Country[] | undefined,
@@ -9,64 +10,57 @@ interface CountryListComponentProps {
 
 export default function CountryListComponent({ countries }: CountryListComponentProps) {
   const navigate = useNavigate();
-  const [countriesList, setCountriesList] = useState(countries);
+
+  // стейты для сортировки и фильтрации. Значение по-умолчанию из localStorage, если существует
+  const [sortedByPopulation, setSortedByPopulation] = useState<boolean>(JSON.parse(localStorage.getItem("countriesSortedByPopulation") ?? "false"));
+  const [sortedByName, setSortedByName] = useState<boolean>(JSON.parse(localStorage.getItem("countriesSortedByName") ?? "false"));
+  const [filterRegion, setFilterRegion] = useState<string>(localStorage.getItem("countriesFilterRegion") ?? "All");
 
 
+  // коллбэк настройки сортировки по населению
+  const handleSortByPopulation = (value?: boolean) => {
+    const newValue = value ?? !sortedByPopulation; // присвоить напрямую, или переключить текущее значение
+    setSortedByPopulation(newValue);
+    localStorage.setItem("countriesSortedByPopulation", JSON.stringify(newValue));
 
-  const handleSortByPopulation = () => {
-    if (!countriesList) {
-        return;
+    // отключить другую сортировку, если true
+    if (newValue == true) {
+        handleSortByName(false);
     }
-    
-    const countriesListSorted = [...countriesList].sort((countryA, countryB) => countryB.population - countryA.population);
-    setCountriesList(countriesListSorted);
   };
 
-  const handleSortByName = () => {
-    if (!countriesList) {
-        return;
+  // коллбэк настройки сортировки по названию
+  const handleSortByName = (value?: boolean) => {
+    const newValue = value ?? !sortedByName; // присвоить напрямую, или переключить текущее значение
+    setSortedByName(newValue);
+    localStorage.setItem("countriesSortedByName", JSON.stringify(newValue));
+
+    // отключить другую сортировку, если true
+    if (newValue == true) {
+        handleSortByPopulation(false);
     }
-    
-    // sort by every letter
-    const countriesListSorted = [...countriesList].sort((countryA, countryB) => {
-        let returnCode = countryA.name.common.charCodeAt(0) - countryB.name.common.charCodeAt(0);
-        if (returnCode == 0) {
-            for (let i = 1; i < countryA.name.common.length; i++) {
-                if (i >= countryB.name.common.length) {
-                    break;
-                }
-
-                returnCode = countryA.name.common.charCodeAt(i) - countryB.name.common.charCodeAt(i);
-
-                if (returnCode !== 0) {
-                    break;
-                }
-            }
-        }
-        return returnCode;
-    });
-    setCountriesList(countriesListSorted);
   };
 
+
+  // коллбэк настройки фильтрации по региону
   const handleRegionSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const region = event.currentTarget.value;
-    
-    const countriesListFiltered = region !== "" ? countries?.filter(country => country.region == region ) : countries;
-    setCountriesList(countriesListFiltered);
+    setFilterRegion(region);
+
+    localStorage.setItem("countriesFilterRegion", region);
   };
 
-  // change country list if props changed
-  useEffect(() => {
-    setCountriesList(countries);
-  }, [countries]);
+  
+  // применить настройки сортировки и фильтрации через transformData()
+  const countriesList = countries && transformData(countries, { sortedByPopulation, sortedByName, filterRegion });
 
   return (
     <div className={styles.countryList}>
         <div className={styles.sortPanel}>
-            <button onClick={handleSortByPopulation} className={styles.sortButton}>By population</button>
-            <button onClick={handleSortByName} className={styles.sortButton}>By Name</button>
-            <select onChange={handleRegionSelectChange} className={styles.selectRegion}>
-                <option value="">All regions</option>
+            <button onClick={() => handleSortByPopulation()} className={styles.sortButton}>By population</button>
+            <button onClick={() => handleSortByName()} className={styles.sortButton}>By Name</button>
+            <select onChange={handleRegionSelectChange} defaultValue={filterRegion} className={styles.selectRegion}>
+                <option value="All">All regions</option>
                 <option value="Africa">Africa</option>
                 <option value="Americas">Americas</option>
                 <option value="Asia">Asia</option>
