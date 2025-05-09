@@ -19,7 +19,7 @@ export default function CountryPage() {
 
     return (
         <div className={styles.countryPage}>
-            <h1>{country?.name.common}</h1>
+            <h1>{ apiLang == "eng" ? country?.name.common : country?.translations[apiLang].common}</h1>
 
             <div className={styles.picture}>
                 <img src={country?.flags.png} alt={country?.flags.alt} />
