@@ -84,3 +84,13 @@
         background-color: #591e1e;
     }
 }
+
+.activeOption {
+    background-color: #ff8800af;
+    &:hover {
+        background-color: #854904;
+    }
+    &:active {
+        background-color: #663804;
+    }
+}

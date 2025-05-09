@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import type { Country } from "../../redux/features/api/types";
 import styles from "./styles.module.scss";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { transformData } from "./utils";
 import { useTranslation } from "react-i18next";
 import { LANG_MAP } from "../../consts";
@@ -24,6 +24,12 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
   // если не фильтровать по-умолчанию, то регион == "All". Иначе значение из sessionStorage или "All"
   const defaultFilterRegion = noFilterByDefault ? "All" : sessionStorage.getItem("countriesFilterRegion") ?? "All";
   const [filterRegion, setFilterRegion] = useState<string>(defaultFilterRegion);
+
+
+  /// Ref для кнопок сортировки и списка регионов
+  const sortedByPopulationButton = useRef<HTMLButtonElement>(null);
+  const sortedByNameButton = useRef<HTMLButtonElement>(null);
+  const filterRegionElement = useRef<HTMLSelectElement>(null);
 
 
 
@@ -72,18 +78,41 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
 
   // применить настройки сортировки и фильтрации через transformData()
   const countriesList = countries && transformData(countries, { sortedByPopulation, sortedByName, filterRegion, apiLang });
+  
+
+    // эффект подсветки для кнопок сортировки
+    useEffect(() => {
+        if (sortedByPopulation) {
+            sortedByPopulationButton.current?.classList.add(styles.activeOption);
+        } else {
+            sortedByPopulationButton.current?.classList.remove(styles.activeOption);
+        }
+
+        if (sortedByName) {
+            sortedByNameButton.current?.classList.add(styles.activeOption);
+        } else {
+            sortedByNameButton.current?.classList.remove(styles.activeOption);
+        }
+
+        if (filterRegion != "All") {
+            filterRegionElement.current?.classList.add(styles.activeOption);
+        } else {
+            filterRegionElement.current?.classList.remove(styles.activeOption);
+        }
+    });
+
 
   return (
     <div className={styles.countryList}>
         <div className={styles.sortPanel}>
             <button onClick={() => handleOptionsReset()} className={`${styles.sortButton} ${styles.resetButton}`}>X</button>
-            <button onClick={() => handleSortByName()} className={styles.sortButton}>
+            <button onClick={() => handleSortByName()} className={styles.sortButton} ref={sortedByNameButton}>
                 { t("byName") }
             </button>
-            <button onClick={() => handleSortByPopulation()} className={styles.sortButton}>
+            <button onClick={() => handleSortByPopulation()} className={styles.sortButton} ref={sortedByPopulationButton}>
                 { t("byPopulation") }
             </button>
-            <select onChange={handleRegionSelectChange} value={filterRegion} className={styles.selectRegion}>
+            <select onChange={handleRegionSelectChange} value={filterRegion} className={styles.selectRegion} ref={filterRegionElement}>
                 <option value="All">{ t("allRegions") }</option>
                 <option value="Africa">{ t("Africa") }</option>
                 <option value="Americas">{ t("Americas") }</option>
