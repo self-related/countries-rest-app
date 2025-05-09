@@ -6,15 +6,21 @@ import { transformData } from "./utils";
 
 interface CountryListComponentProps {
     countries: Country[] | undefined,
+    noFilterByDefault?: boolean
 }
 
-export default function CountryListComponent({ countries }: CountryListComponentProps) {
+export default function CountryListComponent({ countries, noFilterByDefault }: CountryListComponentProps) {
   const navigate = useNavigate();
-
-  // стейты для сортировки и фильтрации. Значение по-умолчанию из localStorage, если существует
+  
+  /// Стейты для сортировки и фильтрации.
+  // Значение для сортировки из localStorage или false
   const [sortedByPopulation, setSortedByPopulation] = useState<boolean>(JSON.parse(localStorage.getItem("countriesSortedByPopulation") ?? "false"));
   const [sortedByName, setSortedByName] = useState<boolean>(JSON.parse(localStorage.getItem("countriesSortedByName") ?? "false"));
-  const [filterRegion, setFilterRegion] = useState<string>(localStorage.getItem("countriesFilterRegion") ?? "All");
+  
+  // не фильтровать по-умолчанию (регион All). Иначе значение из localStorage или All
+  const defaultFilterRegion = noFilterByDefault ? "All" : localStorage.getItem("countriesFilterRegion") ?? "All";
+  const [filterRegion, setFilterRegion] = useState<string>(defaultFilterRegion);
+
 
 
   // коллбэк настройки сортировки по населению
@@ -50,7 +56,7 @@ export default function CountryListComponent({ countries }: CountryListComponent
     localStorage.setItem("countriesFilterRegion", region);
   };
 
-  
+
   // применить настройки сортировки и фильтрации через transformData()
   const countriesList = countries && transformData(countries, { sortedByPopulation, sortedByName, filterRegion });
 

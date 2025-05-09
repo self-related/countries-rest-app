@@ -32,7 +32,7 @@ export default function CountryPage() {
                 <h2>Has borders with:</h2>
                 {
                     data && !isError
-                    ? <CountryListComponent countries={ borderCountries } />
+                    ? <CountryListComponent countries={ borderCountries } noFilterByDefault={true} />
                     : <p className={styles.notFound}>Not Found</p>
                 }
             </div>
