@@ -71,3 +71,16 @@
         cursor: pointer;
     }
 }
+
+.resetButton {
+    background-color: #943131;
+    aspect-ratio: 1/1;
+
+    &:hover {
+        background-color: #cd3838;
+    }
+
+    &:active {
+        background-color: #591e1e;
+    }
+}

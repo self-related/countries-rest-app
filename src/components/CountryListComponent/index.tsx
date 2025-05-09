@@ -56,6 +56,14 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
     sessionStorage.setItem("countriesFilterRegion", region);
   };
 
+  const handleOptionsReset = () => {
+      setSortedByPopulation(false);
+      setSortedByName(false);
+      setFilterRegion("All");
+
+      sessionStorage.clear();
+  };
+
 
   // применить настройки сортировки и фильтрации через transformData()
   const countriesList = countries && transformData(countries, { sortedByPopulation, sortedByName, filterRegion });
@@ -63,9 +71,10 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
   return (
     <div className={styles.countryList}>
         <div className={styles.sortPanel}>
-            <button onClick={() => handleSortByPopulation()} className={styles.sortButton}>By population</button>
+            <button onClick={() => handleOptionsReset()} className={`${styles.sortButton} ${styles.resetButton}`}>X</button>
             <button onClick={() => handleSortByName()} className={styles.sortButton}>By Name</button>
-            <select onChange={handleRegionSelectChange} defaultValue={filterRegion} className={styles.selectRegion}>
+            <button onClick={() => handleSortByPopulation()} className={styles.sortButton}>By population</button>
+            <select onChange={handleRegionSelectChange} value={filterRegion} className={styles.selectRegion}>
                 <option value="All">All regions</option>
                 <option value="Africa">Africa</option>
                 <option value="Americas">Americas</option>
