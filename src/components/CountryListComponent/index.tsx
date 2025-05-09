@@ -124,7 +124,7 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
         {
             countriesList?.map((country, index) => (
                 <div className={styles.country} key={`country-${index}`} onClick={() => navigate(`/country/${country.cca3}`)}>
-                    <p>{country.flag} {apiLang == "eng" ? country.name.official : country.translations[apiLang].official}</p>
+                    <img src={country.flags.png} alt={country.flag} /><p>{apiLang == "eng" ? country.name.official : country.translations[apiLang].official}</p>
                 </div>
             ))
         }

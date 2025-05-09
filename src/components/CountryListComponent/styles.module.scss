@@ -9,16 +9,25 @@
 }
 .country {
     width: 100%;
+    margin: 0;
     padding: 0 0.7rem;
     background-color: #606060;
     border-radius: 3px;
     cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 
     &:hover {
         background-color: #757575;
     }
     &:active {
         background-color: #454545;
+    }
+
+    img {
+        width: 3.3rem;
     }
 }
 
