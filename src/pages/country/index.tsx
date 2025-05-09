@@ -3,9 +3,12 @@ import styles from "./styles.module.scss";
 import { useFetchCountriesByCodesQuery } from "../../redux/features/api/restCountriesApiSlice";
 import CountryListComponent from "../../components/CountryListComponent";
 import { useTranslation } from "react-i18next";
+import { LANG_MAP } from "../../consts";
 
 export default function CountryPage() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const apiLang = LANG_MAP[i18n.language];
+
     const params = useParams<{code: string}>();
     const code: string = params.code!;
 
@@ -23,7 +26,7 @@ export default function CountryPage() {
             </div>
             
             <p className={styles.paragraph}>
-                { t("officialName") + ": " + country?.name.official} 
+                { t("officialName") + ": " + `${apiLang == "eng" ? country?.name.official : country?.translations[apiLang].official}`} 
             </p>
             <p className={styles.paragraph}>
                 { t("region") + ": " + t(country?.region ?? "")} 
