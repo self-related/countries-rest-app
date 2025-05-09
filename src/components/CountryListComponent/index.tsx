@@ -3,6 +3,7 @@ import type { Country } from "../../redux/features/api/types";
 import styles from "./styles.module.scss";
 import { useState } from "react";
 import { transformData } from "./utils";
+import { useTranslation } from "react-i18next";
 
 interface CountryListComponentProps {
     countries: Country[] | undefined,
@@ -11,6 +12,7 @@ interface CountryListComponentProps {
 
 export default function CountryListComponent({ countries, noFilterByDefault }: CountryListComponentProps) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   
   /// Стейты для сортировки и фильтрации.
   // Значение для сортировки из sessionStorage или false
@@ -72,15 +74,19 @@ export default function CountryListComponent({ countries, noFilterByDefault }: C
     <div className={styles.countryList}>
         <div className={styles.sortPanel}>
             <button onClick={() => handleOptionsReset()} className={`${styles.sortButton} ${styles.resetButton}`}>X</button>
-            <button onClick={() => handleSortByName()} className={styles.sortButton}>By Name</button>
-            <button onClick={() => handleSortByPopulation()} className={styles.sortButton}>By population</button>
+            <button onClick={() => handleSortByName()} className={styles.sortButton}>
+                { t("byName") }
+            </button>
+            <button onClick={() => handleSortByPopulation()} className={styles.sortButton}>
+                { t("byPopulation") }
+            </button>
             <select onChange={handleRegionSelectChange} value={filterRegion} className={styles.selectRegion}>
-                <option value="All">All regions</option>
-                <option value="Africa">Africa</option>
-                <option value="Americas">Americas</option>
-                <option value="Asia">Asia</option>
-                <option value="Oceania">Australia & Oceania</option>
-                <option value="Europe">Europe</option>
+                <option value="All">{ t("allRegions") }</option>
+                <option value="Africa">{ t("Africa") }</option>
+                <option value="Americas">{ t("Americas") }</option>
+                <option value="Asia">{ t("Asia") }</option>
+                <option value="Oceania">{ t("Oceania") }</option>
+                <option value="Europe">{ t("Europe") }</option>
             </select>
         </div>
         {

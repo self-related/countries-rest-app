@@ -2,8 +2,10 @@ import { useParams } from "react-router-dom";
 import styles from "./styles.module.scss";
 import { useFetchCountriesByCodesQuery } from "../../redux/features/api/restCountriesApiSlice";
 import CountryListComponent from "../../components/CountryListComponent";
+import { useTranslation } from "react-i18next";
 
 export default function CountryPage() {
+    const { t } = useTranslation();
     const params = useParams<{code: string}>();
     console.log(params)
     const code: string = params.code!;
@@ -24,12 +26,18 @@ export default function CountryPage() {
                 <img src={country?.flags.png} alt={country?.flags.alt} />
             </div>
             
-            <p className={styles.paragraph}>Official name: {country?.name.official}</p>
-            <p className={styles.paragraph}>Region: {country?.region}</p>
-            <p className={styles.paragraph}>Population: {country?.population}</p>
+            <p className={styles.paragraph}>
+                { t("officialName") + ": " + country?.name.official} 
+            </p>
+            <p className={styles.paragraph}>
+                { t("region") + ": " + t(country?.region ?? "")} 
+            </p>
+            <p className={styles.paragraph}>
+                { t("population") + ": " + country?.population} 
+            </p>
 
             <div className={styles.borderCountries}>
-                <h2>Has borders with:</h2>
+                <h2>{ t("commonBorders") }</h2>
                 {
                     data && !isError
                     ? <CountryListComponent countries={ borderCountries } noFilterByDefault={true} />

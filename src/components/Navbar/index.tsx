@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 export default function Navbar() {
     const navigate = useNavigate();
-    const { i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const handleLangChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const lang = event.currentTarget.value;
@@ -18,7 +18,7 @@ export default function Navbar() {
             <button className={styles.homeButton} onClick={() => navigate("/")}>
                 <img src={HomeButton} alt="Home Button" />
             </button>
-            <p>Language:</p>
+            <p>{ t("lang") }:</p>
             <select name="language" id="language" value={i18n.language} onChange={handleLangChange}>
                 <option value="en">English</option>
                 <option value="ru">Русский</option>

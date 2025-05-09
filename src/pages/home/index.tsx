@@ -9,7 +9,7 @@ export default function Home() {
     return (
         <div className={styles.homePage}>
             <h1>REST Countries App</h1>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p>{ t("homePageDesc") }</p>
             <div className={styles.buttons}>
                 <button className={styles.greenButton} onClick={() => navigate("/search/all")}>
                     { t("allCountries") }

@@ -14,6 +14,22 @@ i18next
             translation: {
                 allCountries: "All countries",
                 search: "Search",
+                lang: "Language",
+                officialName: "Official name",
+                population: "Population",
+                region: "Region",
+                homePageDesc: "App for searching countries by various options",
+
+                byName: "By Name",
+                byPopulation: "By Population",
+                allRegions: "All regions",
+                Africa: "Africa",
+                Americas: "Americas",
+                Asia: "Asia",
+                Oceania: "Australia & Oceania",
+                Europe: "Europe",
+
+                commonBorders: "Has borders with",
             }
         },
 
@@ -21,6 +37,22 @@ i18next
             translation: {
                 allCountries: "Все страны",
                 search: "Поиск",
+                lang: "Язык",
+                officialName: "Официальное название",
+                population: "Население",
+                region: "Регион",
+                homePageDesc: "Приложение для поиска и отображения стран по различным параметрам",
+
+                byName: "По названию",
+                byPopulation: "По населению",
+                allRegions: "Все регионы",
+                Africa: "Африка",
+                Americas: "Америка",
+                Asia: "Азия",
+                Oceania: "Австралия и Океания",
+                Europe: "Европа",
+
+                commonBorders: "Общие границы",
             }    
         }
     }
