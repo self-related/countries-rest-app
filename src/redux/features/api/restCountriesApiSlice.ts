@@ -10,7 +10,7 @@ export const restCountriesApiSlice = createApi({
             query: (query: string) => {
                 if (query == "all") {
                     return {
-                        url: "/all",
+                        url: "/all?fields=name,flags,borders,region,population,cca2,cca3,ccn3,cioc,capital",
                         method: "GET",
                     };
                 } else {
