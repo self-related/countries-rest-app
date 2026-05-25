@@ -1,3 +1,6 @@
+## Деплой
+https://countries-rest-app-kappa.vercel.app
+
 ## Запуск
 ```
 git clone https://gitlab.com/self-related/my-awesome-project.git
